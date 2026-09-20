@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Zia + Zoho MCP: Bringing Agentic AI to Zoho Books | Solusindo Total Teknikatama</title>
+<meta name="description" content="How Zia AI and Zoho MCP turn Zoho Books into a conversational, agent-ready accounting system — and how your finance team can start using them safely.">
+<style>
+  :root{
+    --stt-red:#E8272E;
+    --stt-navy:#1A1A2E;
+    --stt-amber:#F59E0B;
+    --ink:#1A1A2E;
+    --muted:#5B5F72;
+    --line:#E7E7EE;
+    --bg:#FFFFFF;
+    --bg-soft:#F7F7FB;
+    --radius:14px;
+    --shadow:0 8px 24px rgba(26,26,46,0.08);
+    --maxw:1080px;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    font-family:"Segoe UI",-apple-system,BlinkMacSystemFont,Roboto,Helvetica,Arial,sans-serif;
+    color:var(--ink);
+    background:var(--bg);
+    line-height:1.65;
+  }
+  a{color:var(--stt-red);text-decoration:none;}
+  a:hover{text-decoration:underline;}
+  img{max-width:100%;display:block;}
+  .lang-hidden{display:none !important;}
+
+  /* Nav */
+  .nav{
+    position:sticky;top:0;z-index:50;
+    background:rgba(255,255,255,0.92);
+    backdrop-filter:saturate(180%) blur(10px);
+    border-bottom:1px solid var(--line);
+  }
+  .nav-inner{
+    max-width:var(--maxw);margin:0 auto;padding:14px 24px;
+    display:flex;align-items:center;justify-content:space-between;gap:16px;
+  }
+  .brand{display:flex;align-items:center;gap:10px;font-weight:800;color:var(--stt-navy);font-size:16px;letter-spacing:.2px;}
+  .brand-mark{
+    width:30px;height:30px;border-radius:8px;
+    background:linear-gradient(135deg,var(--stt-red),var(--stt-amber));
+    flex:none;
+  }
+  .nav-links{display:flex;align-items:center;gap:22px;font-size:14px;font-weight:600;color:var(--stt-navy);}
+  .nav-links a{color:var(--stt-navy);}
+  .nav-links a:hover{color:var(--stt-red);text-decoration:none;}
+  .lang-toggle{
+    display:flex;border:1px solid var(--line);border-radius:999px;overflow:hidden;font-size:13px;font-weight:700;
+  }
+  .lang-toggle button{
+    border:none;background:var(--bg);padding:7px 14px;cursor:pointer;color:var(--muted);
+  }
+  .lang-toggle button.active{background:var(--stt-navy);color:#fff;}
+
+  /* Hero */
+  .hero{position:relative;overflow:hidden;background:var(--stt-navy);color:#fff;}
+  .hero-media{position:relative;height:min(64vh,520px);min-height:320px;}
+  .hero-media img{width:100%;height:100%;object-fit:cover;opacity:.55;}
+  .hero-overlay{
+    position:absolute;inset:0;
+    background:linear-gradient(180deg,rgba(26,26,46,.35) 0%,rgba(26,26,46,.85) 85%);
+  }
+  .hero-content{
+    position:absolute;left:0;right:0;bottom:0;
+    max-width:var(--maxw);margin:0 auto;padding:0 24px 40px;
+  }
+  .hero .tag{
+    display:inline-block;background:var(--stt-red);color:#fff;font-size:12px;font-weight:800;
+    letter-spacing:.06em;text-transform:uppercase;padding:6px 12px;border-radius:999px;margin-bottom:16px;
+  }
+  .hero h1{font-size:clamp(28px,4.4vw,46px);line-height:1.15;margin:0 0 14px;font-weight:800;}
+  .hero p.lead{font-size:clamp(15px,1.8vw,19px);color:#DADAE6;max-width:680px;margin:0 0 18px;}
+  .hero-meta{display:flex;flex-wrap:wrap;gap:18px;font-size:13px;color:#B9B9CC;}
+
+  /* Layout */
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px;}
+  section{padding:56px 0;}
+  section.tight{padding:36px 0;}
+  h2{font-size:clamp(22px,3vw,32px);margin:0 0 14px;font-weight:800;color:var(--stt-navy);}
+  h3{font-size:19px;margin:0 0 8px;font-weight:750;color:var(--stt-navy);}
+  .eyebrow{
+    color:var(--stt-red);font-weight:800;font-size:13px;letter-spacing:.08em;text-transform:uppercase;margin:0 0 10px;
+  }
+  p{color:var(--muted);margin:0 0 14px;}
+  .section-intro{max-width:720px;}
+
+  /* Stats */
+  .stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:28px;}
+  .stat-card{
+    background:var(--bg-soft);border:1px solid var(--line);border-radius:var(--radius);padding:22px 18px;text-align:left;
+  }
+  .stat-num{font-size:30px;font-weight:800;color:var(--stt-navy);line-height:1;margin-bottom:8px;}
+  .stat-num span{color:var(--stt-red);}
+  .stat-label{font-size:13.5px;color:var(--muted);}
+  .stat-src{font-size:11px;color:#9A9DAF;margin-top:8px;}
+
+  /* Capability grid */
+  .cap-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-top:24px;}
+  .cap-card{
+    border:1px solid var(--line);border-radius:var(--radius);padding:22px;background:#fff;box-shadow:var(--shadow);
+  }
+  .cap-card .cap-icon{
+    width:40px;height:40px;border-radius:10px;background:linear-gradient(135deg,var(--stt-red),var(--stt-amber));
+    margin-bottom:14px;
+  }
+  .cap-card h3{margin-bottom:6px;}
+  .cap-card p{margin-bottom:0;font-size:14.5px;}
+
+  /* Feature list */
+  .feature-list{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:24px;}
+  .feature-item{
+    border:1px solid var(--line);border-radius:12px;padding:18px;background:var(--bg-soft);
+  }
+  .feature-item .fi-name{font-weight:750;color:var(--stt-navy);font-size:15px;margin-bottom:6px;}
+  .feature-item p{font-size:13.5px;margin-bottom:0;}
+
+  /* Diagram */
+  .diagram-box{
+    border:1px solid var(--line);border-radius:var(--radius);background:var(--bg-soft);padding:28px;margin-top:24px;
+  }
+  .diagram-caption{font-size:13px;color:var(--muted);text-align:center;margin-top:14px;margin-bottom:0;}
+
+  /* Deep dive table */
+  .deepdive{
+    display:grid;grid-template-columns:1fr 1fr;gap:0;border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;margin-top:24px;
+  }
+  .deepdive > div{padding:26px;}
+  .deepdive .col-zia{background:#fff;border-right:1px solid var(--line);}
+  .deepdive .col-mcp{background:var(--stt-navy);color:#fff;}
+  .deepdive .col-mcp h3, .deepdive .col-mcp .dd-label{color:#fff;}
+  .deepdive .col-mcp p{color:#C7C8DA;}
+  .dd-label{font-size:12px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--stt-red);margin-bottom:8px;}
+  .dd-list{margin:14px 0 0;padding-left:18px;font-size:14px;}
+  .dd-list li{margin-bottom:8px;color:inherit;}
+  .col-zia .dd-list{color:var(--muted);}
+
+  /* Scenario */
+  .scenario{
+    border:1px dashed var(--stt-amber);background:#FFFBF0;border-radius:var(--radius);padding:26px;margin-top:24px;
+  }
+  .scenario .scenario-tag{font-size:12px;font-weight:800;color:#B8790A;text-transform:uppercase;letter-spacing:.05em;margin-bottom:10px;}
+  .scenario-step{display:flex;gap:14px;margin-bottom:16px;}
+  .scenario-step:last-child{margin-bottom:0;}
+  .scenario-step .s-time{flex:none;width:64px;font-weight:800;color:var(--stt-navy);font-size:13px;}
+  .scenario-step p{margin:0;font-size:14.5px;}
+
+  /* ROI box */
+  .roi-box{
+    background:linear-gradient(135deg,var(--stt-navy),#2A2A4A);color:#fff;border-radius:var(--radius);
+    padding:32px;margin-top:24px;display:grid;grid-template-columns:1.2fr 1fr;gap:24px;align-items:center;
+  }
+  .roi-box h3{color:#fff;font-size:20px;}
+  .roi-box p{color:#C7C8DA;font-size:14.5px;}
+  .roi-figure{background:rgba(255,255,255,.08);border-radius:12px;padding:20px;text-align:center;}
+  .roi-figure .roi-num{font-size:36px;font-weight:800;color:var(--stt-amber);}
+  .roi-figure .roi-cap{font-size:12.5px;color:#C7C8DA;margin-top:6px;}
+
+  /* Steps */
+  .steps{counter-reset:step;margin-top:24px;display:grid;gap:14px;}
+  .step{
+    display:grid;grid-template-columns:44px 1fr;gap:16px;border:1px solid var(--line);border-radius:12px;padding:18px;
+  }
+  .step-num{
+    counter-increment:step;width:36px;height:36px;border-radius:50%;background:var(--stt-red);color:#fff;
+    display:flex;align-items:center;justify-content:center;font-weight:800;font-size:14px;
+  }
+  .step-num::before{content:counter(step);}
+  .step h3{margin-bottom:4px;font-size:16px;}
+  .step p{margin-bottom:0;font-size:14px;}
+
+  /* Security note */
+  .note{
+    border-left:4px solid var(--stt-red);background:var(--bg-soft);border-radius:0 12px 12px 0;padding:18px 20px;margin-top:24px;
+  }
+  .note p{margin-bottom:0;font-size:14.5px;color:var(--stt-navy);}
+
+  /* Author */
+  .author-box{
+    display:flex;gap:16px;align-items:center;border:1px solid var(--line);border-radius:var(--radius);padding:22px;margin-top:8px;
+  }
+  .author-avatar{
+    width:56px;height:56px;border-radius:50%;background:linear-gradient(135deg,var(--stt-red),var(--stt-amber));flex:none;
+  }
+  .author-name{font-weight:750;color:var(--stt-navy);}
+  .author-role{font-size:13px;color:var(--muted);}
+
+  /* CTA */
+  .cta{
+    background:var(--stt-red);color:#fff;border-radius:var(--radius);padding:40px;text-align:center;margin-top:8px;
+  }
+  .cta h2{color:#fff;}
+  .cta p{color:#FCD8D9;max-width:560px;margin:0 auto 22px;}
+  .cta-btn{
+    display:inline-block;background:#fff;color:var(--stt-red);font-weight:800;padding:13px 28px;border-radius:999px;font-size:15px;
+  }
+  .cta-btn:hover{text-decoration:none;opacity:.92;}
+
+  footer{border-top:1px solid var(--line);padding:28px 0;text-align:center;font-size:13px;color:var(--muted);}
+
+  @media (max-width:820px){
+    .stats-grid{grid-template-columns:repeat(2,1fr);}
+    .cap-grid{grid-template-columns:1fr;}
+    .feature-list{grid-template-columns:1fr;}
+    .deepdive{grid-template-columns:1fr;}
+    .deepdive .col-zia{border-right:none;border-bottom:1px solid var(--line);}
+    .roi-box{grid-template-columns:1fr;}
+    .nav-links{display:none;}
+  }
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <div class="brand"><span class="brand-mark"></span>Solusindo Total Teknikatama</div>
+    <div class="nav-links">
+      <a href="#zia">Zia</a>
+      <a href="#mcp">MCP</a>
+      <a href="#mulai" class="lang-en">Get Started</a>
+      <a href="#mulai" class="lang-id lang-hidden">Mulai</a>
+      <a href="#cta">Contact</a>
+    </div>
+    <div class="lang-toggle">
+      <button id="btn-en" class="active" onclick="setLang('en')">EN</button>
+      <button id="btn-id" onclick="setLang('id')">ID</button>
+    </div>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="hero-media">
+    <img src="cover.jpg" alt="Team reviewing AI-assisted accounting workflows">
+    <div class="hero-overlay"></div>
+  </div>
+  <div class="hero-content">
+    <span class="tag">Zoho Books &middot; AI &amp; Automation</span>
+    <h1 class="lang-en">Zia + Zoho MCP: Bringing Agentic AI to Your Zoho Books</h1>
+    <h1 class="lang-id lang-hidden">Zia + Zoho MCP: Menghadirkan AI Agentik ke Zoho Books Anda</h1>
+    <p class="lead lang-en">Zoho Books no longer just answers your questions — with Zia and the new Zoho MCP server, it can act on them too. Here's what that means for your finance team, and how to start safely.</p>
+    <p class="lead lang-id lang-hidden">Zoho Books kini tak sekadar menjawab pertanyaan Anda — dengan Zia dan Zoho MCP server yang baru, ia bisa langsung bertindak. Berikut artinya bagi tim finance Anda, dan cara memulainya dengan aman.</p>
+    <div class="hero-meta">
+      <span>20 September 2026</span>
+      <span class="lang-en">8 min read</span>
+      <span class="lang-id lang-hidden">8 menit baca</span>
+      <span>STT Marketing Team</span>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <section class="tight">
+    <p class="lang-en">AI adoption in finance has stopped being a pilot project. By 2026, the vast majority of finance departments use AI in some form — the question for most teams is no longer <em>whether</em>, but <em>where it should be allowed to act</em>. Zoho's answer for Zoho Books comes in two connected pieces: <strong>Zia</strong>, the AI assistant built into the product, and <strong>Zoho MCP</strong>, a new open protocol that lets outside AI agents — Claude, ChatGPT, and others — execute real accounting actions on your behalf.</p>
+    <p class="lang-id lang-hidden">Adopsi AI di bidang finance sudah bukan lagi sekadar proyek uji coba. Pada 2026, mayoritas besar departemen finance sudah memakai AI dalam beberapa bentuk — pertanyaannya bagi kebanyakan tim bukan lagi <em>apakah</em>, melainkan <em>di mana AI boleh diberi kewenangan untuk bertindak</em>. Jawaban Zoho untuk Zoho Books hadir dalam dua bagian yang saling terhubung: <strong>Zia</strong>, asisten AI bawaan di dalam produk, dan <strong>Zoho MCP</strong>, protokol terbuka baru yang memungkinkan agen AI dari luar — Claude, ChatGPT, dan lainnya — mengeksekusi aksi akuntansi sungguhan atas nama Anda.</p>
+
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-num"><span>97%</span></div>
+        <div class="stat-label lang-en">of finance departments have adopted AI in some form</div>
+        <div class="stat-label lang-id lang-hidden">departemen finance sudah mengadopsi AI dalam beberapa bentuk</div>
+        <div class="stat-src">Consero Global, 2026 CFO Report</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num"><span>240</span> <span class="lang-en" style="font-size:14px;color:var(--muted);font-weight:600;">hrs/yr</span><span class="lang-id lang-hidden" style="font-size:14px;color:var(--muted);font-weight:600;">jam/thn</span></div>
+        <div class="stat-label lang-en">of accountant time AI is expected to free up per professional (~US$19,000 in recovered capacity)</div>
+        <div class="stat-label lang-id lang-hidden">waktu akuntan yang diharapkan bisa dihemat AI per orang (setara ~US$19.000 kapasitas kerja)</div>
+        <div class="stat-src">Thomson Reuters Institute, 2025</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num"><span>76%</span></div>
+        <div class="stat-label lang-en">lower invoice-processing cost with AP automation</div>
+        <div class="stat-label lang-id lang-hidden">penurunan biaya proses invoice dengan otomasi AP</div>
+        <div class="stat-src">Ramp / Quadient, 2025&ndash;2026</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">$38B&rarr;<span>$190B</span></div>
+        <div class="stat-label lang-en">projected growth of the AI-in-finance market by 2030 (30.6% CAGR)</div>
+        <div class="stat-label lang-id lang-hidden">proyeksi pertumbuhan pasar AI-in-finance hingga 2030 (CAGR 30,6%)</div>
+        <div class="stat-src">MarketsandMarkets</div>
+      </div>
+    </div>
+  </section>
+
+  <section id="zia">
+    <p class="eyebrow lang-en">Part 1 &middot; Inside the product</p>
+    <p class="eyebrow lang-id lang-hidden">Bagian 1 &middot; Di dalam produk</p>
+    <h2 class="lang-en">What Zia already does inside Zoho Books</h2>
+    <h2 class="lang-id lang-hidden">Apa yang sudah dilakukan Zia di dalam Zoho Books</h2>
+    <p class="section-intro lang-en">Zia is Zoho's built-in AI assistant. It doesn't need any setup with an outside AI tool — it lives in the Zoho Books interface you already use, turning typing and clicking into typing and <em>asking</em>.</p>
+    <p class="section-intro lang-id lang-hidden">Zia adalah asisten AI bawaan Zoho. Tidak perlu instalasi alat AI dari luar — ia sudah ada di antarmuka Zoho Books yang biasa Anda pakai, mengubah aktivitas mengetik dan mengklik menjadi mengetik dan <em>bertanya</em>.</p>
+
+    <div class="feature-list">
+      <div class="feature-item">
+        <div class="fi-name">Ask Zia</div>
+        <p class="lang-en">Type "How many invoices are overdue this week?" and get an instant, conversational answer — no report-building required.</p>
+        <p class="lang-id lang-hidden">Ketik "Berapa invoice yang overdue minggu ini?" dan dapatkan jawaban instan tanpa perlu menyusun laporan manual.</p>
+      </div>
+      <div class="feature-item">
+        <div class="fi-name">CoCreate Agent</div>
+        <p class="lang-en">Describe a quote, sales order or invoice in plain English (or Indonesian) and Zia drafts it — you just review and adjust.</p>
+        <p class="lang-id lang-hidden">Deskripsikan quote, sales order, atau invoice dalam kalimat biasa, dan Zia langsung membuatkan draf-nya — Anda tinggal meninjau dan menyesuaikan.</p>
+      </div>
+      <div class="feature-item">
+        <div class="fi-name">Zia Insights</div>
+        <p class="lang-en">Automatically surfaces trends, patterns and projections in your financial reports without manual digging.</p>
+        <p class="lang-id lang-hidden">Otomatis menampilkan tren, pola, dan proyeksi dari laporan keuangan Anda tanpa perlu menelusuri manual.</p>
+      </div>
+      <div class="feature-item">
+        <div class="fi-name">Zia Invoice Agent</div>
+        <p class="lang-en">A consolidated view of overdue balances, customer payment patterns, and invoices trending toward late payment.</p>
+        <p class="lang-id lang-hidden">Tampilan terpadu saldo overdue, pola pembayaran pelanggan, dan invoice yang berpotensi telat dibayar.</p>
+      </div>
+      <div class="feature-item">
+        <div class="fi-name">Anomaly &amp; forecast views</div>
+        <p class="lang-en">"View Anomaly" flags unusual patterns or errors in your data; report visualization turns tables into trend forecasts.</p>
+        <p class="lang-id lang-hidden">"View Anomaly" menandai pola atau kesalahan yang tidak wajar; visualisasi laporan mengubah tabel menjadi proyeksi tren.</p>
+      </div>
+      <div class="feature-item">
+        <div class="fi-name">Bank statement categorization</div>
+        <p class="lang-en">Suggests category, customer/vendor, and account for bank transactions based on your historical behavior.</p>
+        <p class="lang-id lang-hidden">Menyarankan kategori, customer/vendor, dan akun untuk transaksi bank berdasarkan pola historis Anda.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="mcp" style="background:var(--bg-soft);border-radius:24px;">
+    <p class="eyebrow lang-en">Part 2 &middot; Beyond the product</p>
+    <p class="eyebrow lang-id lang-hidden">Bagian 2 &middot; Melampaui produk</p>
+    <h2 class="lang-en">What Zoho MCP adds: AI agents that can act, not just answer</h2>
+    <h2 class="lang-id lang-hidden">Yang ditambahkan Zoho MCP: agen AI yang bisa bertindak, bukan sekadar menjawab</h2>
+    <p class="section-intro lang-en">Model Context Protocol (MCP) is an open standard that lets any AI agent — Claude, ChatGPT, Cursor, and others — connect directly to your business systems. Zoho MCP applies this to the whole Zoho suite, including Books: instead of an AI that only chats, you get one that can actually execute the task inside your accounts, under permissions you control.</p>
+    <p class="section-intro lang-id lang-hidden">Model Context Protocol (MCP) adalah standar terbuka yang memungkinkan agen AI apa pun — Claude, ChatGPT, Cursor, dan lainnya — terhubung langsung ke sistem bisnis Anda. Zoho MCP menerapkan ini ke seluruh Zoho suite, termasuk Books: bukan sekadar AI yang mengobrol, tapi AI yang benar-benar bisa mengeksekusi tugas di dalam akun Anda, dengan izin yang Anda kendalikan sendiri.</p>
+
+    <div class="cap-grid">
+      <div class="cap-card">
+        <div class="cap-icon"></div>
+        <h3 class="lang-en">Natural-language transactions</h3>
+        <h3 class="lang-id lang-hidden">Transaksi via bahasa natural</h3>
+        <p class="lang-en">"Create an invoice for PT Sinar Jaya for Rp 30,000,000" or "record this expense" — done in one prompt, from your AI chat of choice.</p>
+        <p class="lang-id lang-hidden">"Buatkan invoice untuk PT Sinar Jaya senilai Rp 30.000.000" atau "catat pengeluaran ini" — selesai dengan satu perintah, dari chat AI pilihan Anda.</p>
+      </div>
+      <div class="cap-card">
+        <div class="cap-icon"></div>
+        <h3 class="lang-en">Receivables on autopilot</h3>
+        <h3 class="lang-id lang-hidden">Piutang berjalan otomatis</h3>
+        <p class="lang-en">Ask the agent to track overdue invoices and draft — or send — payment reminders, matched to each customer's history.</p>
+        <p class="lang-id lang-hidden">Minta agen memantau invoice overdue dan menyiapkan — atau mengirim — pengingat pembayaran, disesuaikan dengan riwayat tiap pelanggan.</p>
+      </div>
+      <div class="cap-card">
+        <div class="cap-icon"></div>
+        <h3 class="lang-en">Data upkeep by conversation</h3>
+        <h3 class="lang-id lang-hidden">Pemeliharaan data via percakapan</h3>
+        <p class="lang-en">Update customer records, vendor details and item pricing without opening a single settings page.</p>
+        <p class="lang-id lang-hidden">Perbarui data pelanggan, detail vendor, dan harga item tanpa membuka satu pun halaman pengaturan.</p>
+      </div>
+      <div class="cap-card">
+        <div class="cap-icon"></div>
+        <h3 class="lang-en">Instant financial insight</h3>
+        <h3 class="lang-id lang-hidden">Insight finansial instan</h3>
+        <p class="lang-en">"What's total revenue this quarter?" or "show me P&amp;L trend" — answered directly, sourced live from Books.</p>
+        <p class="lang-id lang-hidden">"Berapa total revenue kuartal ini?" atau "tampilkan tren P&amp;L" — terjawab langsung, diambil dari data Books secara live.</p>
+      </div>
+      <div class="cap-card">
+        <div class="cap-icon"></div>
+        <h3 class="lang-en">Cross-app coordination</h3>
+        <h3 class="lang-id lang-hidden">Koordinasi lintas-aplikasi</h3>
+        <p class="lang-en">One MCP server spans Books, CRM, Billing, Expense and more — an agent can sync a closed deal in CRM straight into a Books invoice.</p>
+        <p class="lang-id lang-hidden">Satu MCP server mencakup Books, CRM, Billing, Expense, dan lainnya — agen bisa menyinkronkan deal yang closed di CRM langsung menjadi invoice di Books.</p>
+      </div>
+      <div class="cap-card">
+        <div class="cap-icon"></div>
+        <h3 class="lang-en">Permission-based &amp; auditable</h3>
+        <h3 class="lang-id lang-hidden">Berbasis izin &amp; dapat diaudit</h3>
+        <p class="lang-en">Admins choose which tools are enabled and what data an agent can touch; every action is traceable back to the request.</p>
+        <p class="lang-id lang-hidden">Admin memilih tool mana yang diaktifkan dan data apa yang bisa diakses agen; setiap aksi dapat ditelusuri kembali ke permintaannya.</p>
+      </div>
+    </div>
+
+    <div class="diagram-box">
+      <svg viewBox="0 0 760 220" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Diagram of a user prompting an AI agent, which calls Zoho MCP to act on Zoho Books and connected Zoho apps">
+        <defs>
+          <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+            <path d="M0,0 L10,5 L0,10 z" fill="#9A9DAF"></path>
+          </marker>
+        </defs>
+        <!-- User -->
+        <rect x="10" y="80" width="130" height="60" rx="12" fill="#ffffff" stroke="#E7E7EE"></rect>
+        <text x="75" y="105" text-anchor="middle" font-size="12" font-weight="700" fill="#1A1A2E" font-family="Segoe UI, sans-serif">You / Finance</text>
+        <text x="75" y="122" text-anchor="middle" font-size="10.5" fill="#5B5F72" font-family="Segoe UI, sans-serif">"Send reminders for overdue invoices"</text>
+
+        <line x1="140" y1="110" x2="205" y2="110" stroke="#9A9DAF" stroke-width="1.5" marker-end="url(#arrow)"></line>
+
+        <!-- AI agent -->
+        <rect x="210" y="70" width="150" height="80" rx="12" fill="#1A1A2E"></rect>
+        <text x="285" y="102" text-anchor="middle" font-size="12" font-weight="700" fill="#ffffff" font-family="Segoe UI, sans-serif">AI Agent</text>
+        <text x="285" y="120" text-anchor="middle" font-size="10.5" fill="#C7C8DA" font-family="Segoe UI, sans-serif">Claude / ChatGPT /</text>
+        <text x="285" y="134" text-anchor="middle" font-size="10.5" fill="#C7C8DA" font-family="Segoe UI, sans-serif">any MCP client</text>
+
+        <line x1="360" y1="110" x2="425" y2="110" stroke="#9A9DAF" stroke-width="1.5" marker-end="url(#arrow)"></line>
+
+        <!-- MCP -->
+        <rect x="430" y="65" width="150" height="90" rx="12" fill="#ffffff" stroke="#E8272E" stroke-width="1.5"></rect>
+        <text x="505" y="100" text-anchor="middle" font-size="12" font-weight="800" fill="#E8272E" font-family="Segoe UI, sans-serif">Zoho MCP</text>
+        <text x="505" y="118" text-anchor="middle" font-size="10.5" fill="#5B5F72" font-family="Segoe UI, sans-serif">permissions +</text>
+        <text x="505" y="132" text-anchor="middle" font-size="10.5" fill="#5B5F72" font-family="Segoe UI, sans-serif">audit trail</text>
+
+        <line x1="580" y1="95" x2="630" y2="65" stroke="#9A9DAF" stroke-width="1.5" marker-end="url(#arrow)"></line>
+        <line x1="580" y1="125" x2="630" y2="155" stroke="#9A9DAF" stroke-width="1.5" marker-end="url(#arrow)"></line>
+
+        <!-- Zoho apps -->
+        <rect x="635" y="30" width="120" height="46" rx="10" fill="#F59E0B" opacity="0.15" stroke="#F59E0B"></rect>
+        <text x="695" y="58" text-anchor="middle" font-size="11.5" font-weight="700" fill="#B8790A" font-family="Segoe UI, sans-serif">Zoho Books</text>
+
+        <rect x="635" y="144" width="120" height="46" rx="10" fill="#E7E7EE"></rect>
+        <text x="695" y="164" text-anchor="middle" font-size="10.5" fill="#5B5F72" font-family="Segoe UI, sans-serif">CRM &middot; Billing &middot;</text>
+        <text x="695" y="178" text-anchor="middle" font-size="10.5" fill="#5B5F72" font-family="Segoe UI, sans-serif">Expense &amp; more</text>
+      </svg>
+      <p class="diagram-caption lang-en">A request flows from you, through your AI agent, through Zoho MCP's permission layer, into Zoho Books (and, when relevant, other connected Zoho apps).</p>
+      <p class="diagram-caption lang-id lang-hidden">Permintaan mengalir dari Anda, melalui agen AI, melalui lapisan izin Zoho MCP, hingga masuk ke Zoho Books (dan aplikasi Zoho lain yang terhubung bila relevan).</p>
+    </div>
+  </section>
+
+  <section>
+    <p class="eyebrow lang-en">Zia vs. Zoho MCP</p>
+    <p class="eyebrow lang-id lang-hidden">Zia vs. Zoho MCP</p>
+    <h2 class="lang-en">Two layers of AI, working together</h2>
+    <h2 class="lang-id lang-hidden">Dua lapisan AI, bekerja bersama</h2>
+    <p class="section-intro lang-en">Zia and Zoho MCP aren't competing features — they solve different problems, and most teams will end up using both.</p>
+    <p class="section-intro lang-id lang-hidden">Zia dan Zoho MCP bukan fitur yang saling bersaing — keduanya menyelesaikan masalah berbeda, dan kebanyakan tim akan memakai keduanya sekaligus.</p>
+
+    <div class="deepdive">
+      <div class="col-zia">
+        <div class="dd-label">Zia</div>
+        <h3 class="lang-en">Built-in, inside Zoho Books</h3>
+        <h3 class="lang-id lang-hidden">Bawaan, di dalam Zoho Books</h3>
+        <p class="lang-en">Best for day-to-day work by people who already live in the Books UI: quick questions, drafting transactions, spotting anomalies, voice input.</p>
+        <p class="lang-id lang-hidden">Paling cocok untuk kerja harian tim yang memang beroperasi di UI Books: pertanyaan cepat, membuat draf transaksi, mendeteksi anomali, input suara.</p>
+        <ul class="dd-list">
+          <li class="lang-en">No extra setup — available where you already work</li>
+          <li class="lang-id lang-hidden">Tanpa setup tambahan — tersedia di tempat Anda sudah bekerja</li>
+          <li class="lang-en">Great for individual productivity</li>
+          <li class="lang-id lang-hidden">Cocok untuk produktivitas individu</li>
+        </ul>
+      </div>
+      <div class="col-mcp">
+        <div class="dd-label">Zoho MCP</div>
+        <h3 class="lang-en">External, agent-to-system</h3>
+        <h3 class="lang-id lang-hidden">Eksternal, agen-ke-sistem</h3>
+        <p class="lang-en">Best for orchestration: letting Claude or ChatGPT run scheduled checks, chain actions across apps, or give a non-Books-fluent manager a conversational front door.</p>
+        <p class="lang-id lang-hidden">Paling cocok untuk orkestrasi: membiarkan Claude atau ChatGPT menjalankan pengecekan terjadwal, merangkai aksi lintas aplikasi, atau memberi manajer yang awam Books sebuah "pintu" percakapan.</p>
+        <ul class="dd-list">
+          <li class="lang-en">Model-agnostic, works with any MCP client</li>
+          <li class="lang-id lang-hidden">Model-agnostic, berjalan di klien MCP mana pun</li>
+          <li class="lang-en">Admin-controlled tool access, per action</li>
+          <li class="lang-id lang-hidden">Akses tool dikendalikan admin, per aksi</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section style="background:var(--bg-soft);border-radius:24px;">
+    <p class="eyebrow lang-en">Illustrative scenario</p>
+    <p class="eyebrow lang-id lang-hidden">Skenario ilustratif</p>
+    <h2 class="lang-en">A finance team's Monday with Zia + Zoho MCP</h2>
+    <h2 class="lang-id lang-hidden">Hari Senin sebuah tim finance bersama Zia + Zoho MCP</h2>
+    <p class="section-intro lang-en">A composite, illustrative walk-through of how these tools fit into a typical week for a mid-sized Indonesian company — not a specific customer's results.</p>
+    <p class="section-intro lang-id lang-hidden">Ilustrasi gabungan tentang bagaimana kedua tool ini masuk ke rutinitas mingguan perusahaan menengah di Indonesia — bukan hasil dari pelanggan tertentu.</p>
+
+    <div class="scenario">
+      <div class="scenario-tag lang-en">For illustration only</div>
+      <div class="scenario-tag lang-id lang-hidden">Hanya ilustrasi</div>
+      <div class="scenario-step">
+        <div class="s-time">08:05</div>
+        <p class="lang-en">The controller opens Zoho Books and asks Zia: "Which invoices are overdue by more than 30 days?" Zia's Invoice Agent view answers instantly, no report export needed.</p>
+        <p class="lang-id lang-hidden">Controller membuka Zoho Books dan bertanya ke Zia: "Invoice mana yang overdue lebih dari 30 hari?" Tampilan Zia Invoice Agent langsung menjawab, tanpa perlu ekspor laporan.</p>
+      </div>
+      <div class="scenario-step">
+        <div class="s-time">09:30</div>
+        <p class="lang-en">From Claude, the AR lead asks the connected Zoho MCP server to draft reminder emails for those overdue accounts, tuned to each customer's payment history — then reviews and sends.</p>
+        <p class="lang-id lang-hidden">Dari Claude, staf AR meminta Zoho MCP server yang terhubung untuk menyiapkan draf email pengingat untuk akun-akun overdue tersebut, disesuaikan riwayat pembayaran tiap pelanggan — lalu meninjau dan mengirimnya.</p>
+      </div>
+      <div class="scenario-step">
+        <div class="s-time">14:00</div>
+        <p class="lang-en">A branch manager who never opens Zoho Books asks ChatGPT, "What's our cash position and revenue this month?" — MCP pulls the live numbers straight from Books.</p>
+        <p class="lang-id lang-hidden">Manajer cabang yang tidak pernah membuka Zoho Books bertanya ke ChatGPT, "Bagaimana posisi kas dan revenue bulan ini?" — MCP mengambil angka live langsung dari Books.</p>
+      </div>
+      <div class="scenario-step">
+        <div class="s-time">16:45</div>
+        <p class="lang-en">A new vendor bill lands in the inbox. CoCreate Agent turns a one-line description into a drafted expense entry; Zia flags a small anomaly against last month's average before it's approved.</p>
+        <p class="lang-id lang-hidden">Tagihan vendor baru masuk ke inbox. CoCreate Agent mengubah deskripsi satu baris menjadi draf entri pengeluaran; Zia menandai sedikit anomali dibanding rata-rata bulan lalu sebelum disetujui.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="mulai">
+    <p class="eyebrow lang-en">Getting started</p>
+    <p class="eyebrow lang-id lang-hidden">Cara memulai</p>
+    <h2 class="lang-en">Three low-risk steps to start using both</h2>
+    <h2 class="lang-id lang-hidden">Tiga langkah rendah risiko untuk mulai memakai keduanya</h2>
+
+    <div class="steps">
+      <div class="step">
+        <div class="step-num"></div>
+        <div>
+          <h3 class="lang-en">Turn on Zia inside Zoho Books</h3>
+          <h3 class="lang-id lang-hidden">Aktifkan Zia di dalam Zoho Books</h3>
+          <p class="lang-en">Enable Zia's AI features in Settings and let your team get comfortable asking questions and drafting transactions before adding external agents.</p>
+          <p class="lang-id lang-hidden">Aktifkan fitur AI Zia di menu Settings, dan biarkan tim Anda terbiasa bertanya serta membuat draf transaksi sebelum menambahkan agen eksternal.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num"></div>
+        <div>
+          <h3 class="lang-en">Connect Zoho Books to Claude or ChatGPT via Zoho MCP</h3>
+          <h3 class="lang-id lang-hidden">Hubungkan Zoho Books ke Claude atau ChatGPT lewat Zoho MCP</h3>
+          <p class="lang-en">Claude has a native connector for the simplest setup; other MCP clients connect through the Zoho MCP hub. Start with read-only tools like reports and reminders.</p>
+          <p class="lang-id lang-hidden">Claude punya konektor native untuk setup paling sederhana; klien MCP lain terhubung lewat Zoho MCP hub. Mulai dari tool read-only seperti laporan dan pengingat.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num"></div>
+        <div>
+          <h3 class="lang-en">Add approval gates, then expand to transactions</h3>
+          <h3 class="lang-id lang-hidden">Tambahkan gerbang approval, lalu perluas ke transaksi</h3>
+          <p class="lang-en">Once trust is established, enable transaction-creating tools with admin approval required, and widen scope to cross-app workflows.</p>
+          <p class="lang-id lang-hidden">Setelah kepercayaan terbangun, aktifkan tool yang membuat transaksi dengan syarat approval admin, lalu perluas ke alur kerja lintas aplikasi.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="note">
+      <p class="lang-en"><strong>On security:</strong> Zoho MCP is permission-based by design — admins choose which tools are enabled and what data agents can reach, and actions can require approval before they execute. Treat it the same way you'd treat any new integration: start narrow, log everything, widen access deliberately.</p>
+      <p class="lang-id lang-hidden"><strong>Soal keamanan:</strong> Zoho MCP dirancang berbasis izin — admin memilih tool mana yang aktif dan data apa yang bisa dijangkau agen, dan aksi tertentu bisa disyaratkan mendapat approval sebelum dieksekusi. Perlakukan seperti integrasi baru lainnya: mulai dari cakupan sempit, catat semua aktivitas, perluas akses secara bertahap.</p>
+    </div>
+  </section>
+
+  <section style="background:var(--bg-soft);border-radius:24px;">
+    <div class="roi-box">
+      <div>
+        <h3 class="lang-en">What this could mean for a typical finance team</h3>
+        <h3 class="lang-id lang-hidden">Artinya bagi tim finance pada umumnya</h3>
+        <p class="lang-en">Based on published 2025&ndash;2026 industry figures for AI-assisted accounting — actual results depend on your processes and how broadly you roll AI out.</p>
+        <p class="lang-id lang-hidden">Berdasarkan data industri 2025&ndash;2026 yang telah dipublikasikan untuk akuntansi berbantuan AI — hasil aktual tergantung proses Anda dan seberapa luas penerapan AI-nya.</p>
+      </div>
+      <div class="roi-figure">
+        <div class="roi-num">7.5 <span class="lang-en" style="font-size:16px;">days faster</span><span class="lang-id lang-hidden" style="font-size:16px;">hari lebih cepat</span></div>
+        <div class="roi-cap lang-en">off the monthly financial close (Stanford/MIT study, 2025)</div>
+        <div class="roi-cap lang-id lang-hidden">dari waktu tutup buku bulanan (studi Stanford/MIT, 2025)</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="tight">
+    <div class="author-box">
+      <div class="author-avatar"></div>
+      <div>
+        <div class="author-name">STT Marketing Team</div>
+        <div class="author-role lang-en">Solusindo Total Teknikatama &middot; Authorized Zoho Partner, Indonesia</div>
+        <div class="author-role lang-id lang-hidden">Solusindo Total Teknikatama &middot; Authorized Zoho Partner, Indonesia</div>
+      </div>
+    </div>
+  </section>
+
+  <section id="cta">
+    <div class="cta">
+      <h2 class="lang-en">Want Zia and Zoho MCP set up properly for your business?</h2>
+      <h2 class="lang-id lang-hidden">Ingin Zia dan Zoho MCP disiapkan dengan tepat untuk bisnis Anda?</h2>
+      <p class="lang-en">As a Zoho partner, STT helps Indonesian businesses turn on the right AI features, set safe permission boundaries, and train finance teams to use them well.</p>
+      <p class="lang-id lang-hidden">Sebagai Zoho partner, STT membantu bisnis di Indonesia mengaktifkan fitur AI yang tepat, menetapkan batasan izin yang aman, dan melatih tim finance untuk memanfaatkannya secara maksimal.</p>
+      <a class="cta-btn lang-en" href="mailto:hello@sttindo.com">Talk to STT</a>
+      <a class="cta-btn lang-id lang-hidden" href="mailto:hello@sttindo.com">Hubungi STT</a>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    &copy; 2026 Solusindo Total Teknikatama. <span class="lang-en">All rights reserved.</span><span class="lang-id lang-hidden">Hak cipta dilindungi.</span>
+  </div>
+</footer>
+
+<script>
+function setLang(lang){
+  document.querySelectorAll('.lang-en').forEach(function(el){ el.classList.toggle('lang-hidden', lang !== 'en'); });
+  document.querySelectorAll('.lang-id').forEach(function(el){ el.classList.toggle('lang-hidden', lang !== 'id'); });
+  document.getElementById('btn-en').classList.toggle('active', lang === 'en');
+  document.getElementById('btn-id').classList.toggle('active', lang === 'id');
+  document.documentElement.lang = lang;
+  try{ localStorage.setItem('stt-blog-lang', lang); }catch(e){}
+}
+(function(){
+  var saved = null;
+  try{ saved = localStorage.getItem('stt-blog-lang'); }catch(e){}
+  if(saved === 'id'){ setLang('id'); }
+})();
+</script>
+</body>
+</html>
