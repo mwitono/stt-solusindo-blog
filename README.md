@@ -22,6 +22,7 @@ Every post lives in its own dated folder under `posts/`, so posts never collide 
 - **Brand colors**: `#E8272E` (STT red), `#1A1A2E` (navy), `#F59E0B` (amber accent).
 - **Sections used across posts**: sticky nav with lang toggle, hero with cover image, stats grid (sourced), feature/capability grid, an inline SVG diagram where a concept needs illustrating, a comparison or deep-dive block, an illustrative scenario (clearly labeled as illustrative — do not fabricate specifics about named real companies unless you have verified, citable facts), a getting-started/steps section, an ROI callout, an author box, and a closing CTA.
 - **Cover images**: generated via Canva (`youtube_banner` format, 1600px wide export) using a warm, candid, people-in-office photography style — see the `blog-cover-image-generator` skill for the prompt template and weekly scene rotation. Pick a different scene than the immediately preceding post if publishing more than one post in the same week.
+- **Logo**: `assets/logo.png` (STT Solusindo logo, transparent PNG) goes in the nav on every page — homepage and every post. Reference it with a relative path (`assets/logo.png` from the homepage, `../../assets/logo.png` from a post). On a dark nav background, wrap it in a small white rounded chip (`background:#fff;border-radius:8px;padding:4px 10px`) so it stays legible — see any existing post's nav for the pattern to copy.
 
 ## Publishing a new post
 
