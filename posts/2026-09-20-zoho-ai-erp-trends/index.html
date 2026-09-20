@@ -35,13 +35,8 @@
     position:sticky;top:0;z-index:100;
   }
   .brand{display:flex;align-items:center;gap:10px;}
-  .logo-mark{
-    width:38px;height:38px;border-radius:10px;
-    background:linear-gradient(135deg,var(--primary),var(--accent));
-    display:flex;align-items:center;justify-content:center;
-    font-family:'Poppins',sans-serif;font-weight:800;color:#fff;font-size:18px;
-  }
-  .brand-name{color:#fff;font-family:'Poppins',sans-serif;font-weight:700;font-size:20px;}
+  .brand-logo-chip{background:#fff;border-radius:8px;padding:4px 10px;display:flex;align-items:center;}
+  .brand-logo{height:28px;width:auto;display:block;}
   .lang-toggle{
     display:flex;background:rgba(255,255,255,0.08);border-radius:30px;padding:4px;
   }
@@ -224,8 +219,7 @@
 
 <nav class="navbar">
   <div class="brand">
-    <div class="logo-mark">S</div>
-    <div class="brand-name">STT Solusindo</div>
+    <div class="brand-logo-chip"><img src="../../assets/logo.png" alt="Solusindo Total Teknikatama" class="brand-logo"></div>
   </div>
   <div class="lang-toggle">
     <button id="btn-en" class="active" onclick="setLang('en')">English</button>
